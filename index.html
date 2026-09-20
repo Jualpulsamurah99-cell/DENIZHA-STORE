@@ -3,70 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DENIHZA STORE - Pulsa, Kuota, E-Wallet & Token</title>
-  <meta name="description" content="DENIHZA STORE - pulsa, kuota internet, dompet digital dan token listrik.">
+  <title>DENIHZA STORE — Solusi Lengkap Kebutuhan Digital</title>
+  <meta name="description" content="DENIHZA STORE — Pulsa, kuota internet, dompet digital dan token listrik.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo"><span>⚡</span><b>D</b></div>
-      <div><strong>DENIHZA STORE</strong><span>Pulsa • Kuota • E-Wallet • Token</span></div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html" aria-label="DENIHZA STORE">
+      <div class="logo-badge"><span>ϟ</span><b>D</b></div>
+      <div class="brand-copy"><strong>DENIHZA STORE</strong><span>Pulsa • Kuota • E-Wallet • Token</span></div>
+    </a>
+    <nav class="nav-links" aria-label="Navigasi utama">
+      <a href="#beranda">⌂ <span>Beranda</span></a>
+      <a href="#produk" class="active">▣ <span>Pulsa</span></a>
+      <a href="#produk">◎ <span>Kuota Internet</span></a>
+      <a href="#produk">▤ <span>Dompet Digital</span></a>
+      <a href="#produk">ϟ <span>Token Listrik</span></a>
+    </nav>
+    <a class="wa-top" id="waTop" href="#" target="_blank" rel="noopener">◉ WhatsApp <span>›</span></a>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="beranda">
+    <div class="hero-glow glow-one"></div><div class="hero-glow glow-two"></div>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="hero-pills"><span>⌂ &nbsp;DENIHZA STORE</span><span>Top Up Aman • Proses Cepat • Harga Terbaik</span></div>
+        <h1>Solusi Lengkap<br><span>Kebutuhan Digital Anda</span></h1>
+        <p>Pulsa, kuota internet, top up dompet digital, dan token listrik semua bisa di sini. Proses cepat, harga bersaing, 24 jam siap melayani!</p>
+        <div class="hero-features">
+          <div><i>ϟ</i><span><b>Proses Cepat</b><small>Hitungan detik</small></span></div>
+          <div><i>✓</i><span><b>Aman & Terpercaya</b><small>Transaksi 100% aman</small></span></div>
+          <div><i>◇</i><span><b>Harga Terbaik</b><small>Selalu terjangkau</small></span></div>
+          <div><i>◷</i><span><b>Layanan 24 Jam</b><small>Kapan saja, di mana saja</small></span></div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-logo"><span>ϟ</span><b>D</b></div>
+          <strong>DENIHZA<br>STORE</strong><small>Pulsa • Kuota • E-Wallet • Token</small>
+        </div>
+        <div class="float-card f-telkomsel"><b>T</b><span>Telkomsel</span></div>
+        <div class="float-card f-xl"><b>XL</b></div><div class="float-card f-indosat"><b>indosat</b></div>
+        <div class="float-card f-axis"><b>AXIS</b></div><div class="float-card f-tri"><b>3</b></div>
+        <div class="float-card f-dana"><b>◉ DANA</b></div><div class="float-card f-ovo"><b>OVO</b></div>
+        <div class="float-card f-gopay"><b>▰ gopay</b></div><div class="float-card f-shopee"><b>⌂ ShopeePay</b></div>
+        <div class="float-card f-pln"><b>ϟ</b><span>Token Listrik</span></div>
+      </div>
     </div>
-    <a class="wa-top" id="waTop" href="#" target="_blank">WhatsApp</a>
-  </header>
+  </section>
 
-  <main>
-    <section class="hero">
-      <div>
-        <p class="eyebrow">DENIHZA STORE</p>
-        <h1>Top up mudah, pilih <span class="accent">provider</span> lalu pilih produknya.</h1>
-        <p class="hero-text">Pilih <b>Pulsa</b> atau <b>Kuota Internet</b>, pilih provider, lalu pilih nominal atau paket yang kamu butuhkan.</p>
-        <a href="#produk" class="primary-btn">Belanja Sekarang</a>
+  <section class="service-tabs" id="produk">
+    <button class="service-card cat active" data-category="pulsa"><span class="service-icon phone-icon">▯</span><span><b>Pulsa</b><small>Isi pulsa semua operator</small></span><em>›</em></button>
+    <button class="service-card cat" data-category="kuota"><span class="service-icon globe-icon">◎</span><span><b>Kuota Internet</b><small>Paket data & internet</small></span><em>›</em></button>
+    <button class="service-card cat" data-category="ewallet"><span class="service-icon wallet-icon">▣</span><span><b>Dompet Digital</b><small>Top up e-wallet</small></span><em>›</em></button>
+    <button class="service-card cat" data-category="token"><span class="service-icon bolt-icon">ϟ</span><span><b>Token Listrik</b><small>PLN prabayar</small></span><em>›</em></button>
+  </section>
+
+  <section id="mobileShop" class="provider-section">
+    <div class="section-label">PILIH PROVIDER</div>
+    <div class="provider-heading"><div><h2 id="serviceTitle">Pilih Provider Pulsa</h2><p>Pilih provider yang kamu gunakan untuk melihat pilihan nominal pulsa.</p></div><div class="flow-note">Pilih provider → pilih nominal / paket</div></div>
+    <div id="providerButtons" class="provider-buttons"></div>
+  </section>
+
+  <section class="shop-layout">
+    <div class="products-wrap">
+      <div class="section-head">
+        <div class="product-heading"><div class="brand-title"><span class="mini-brand">ϟ</span><div><h2 id="categoryTitle">Pulsa Telkomsel</h2><p id="productHint">Pilih nominal pulsa Telkomsel sesuai kebutuhan Anda.</p></div></div></div>
+        <div class="search-wrap"><span>⌕</span><input id="search" class="search" type="search" placeholder="Cari nominal atau paket..."></div>
       </div>
-      <div class="hero-card"><div class="hero-logo">⚡</div><b>DENIHZA STORE</b><span>Pulsa • Kuota • E-Wallet • Token</span><div class="hero-badges"><span>✓ Praktis</span><span>✓ Cepat</span><span>✓ QRIS</span></div></div>
-    </section>
+      <div id="products" class="products"></div>
+    </div>
+    <aside class="benefit-card">
+      <div class="benefit-shield">✓</div>
+      <h2>Kenapa Pilih<br>DENIHZA STORE?</h2>
+      <ul><li>Proses cepat dan otomatis</li><li>Harga paling murah</li><li>Layanan 24 jam</li><li>Transaksi aman & terpercaya</li></ul>
+      <div class="benefit-note">Top Up Sekarang<br><b>Jangan Nanti!</b></div><div class="paper-plane">➤</div>
+    </aside>
+  </section>
 
-    <section class="categories" id="produk">
-      <button class="cat active" data-category="pulsa">📱 Pulsa</button>
-      <button class="cat" data-category="kuota">🌐 Kuota Internet</button>
-      <button class="cat" data-category="ewallet">💳 Dompet Digital</button>
-      <button class="cat" data-category="token">⚡ Token Listrik</button>
-    </section>
+  <section class="steps"><div><b>1</b><span>Pilih provider</span></div><div><b>2</b><span>Pilih pulsa / kuota</span></div><div><b>3</b><span>Bayar via QRIS</span></div><div><b>4</b><span>Konfirmasi WhatsApp</span></div></section>
 
-    <section id="mobileShop" class="provider-section">
-      <div class="provider-title">
-        <div><p class="eyebrow">LANGKAH 1</p><h2 id="serviceTitle">Pilih Provider</h2></div>
-        <div class="mini-note">Pilih <b>provider</b> → pilih <b>nominal / paket</b> → checkout</div>
-      </div>
-      <div id="providerButtons" class="provider-buttons"></div>
-    </section>
-
-    <section class="shop-grid">
-      <div class="products-wrap">
-        <div class="section-head">
-          <div><p class="eyebrow">LANGKAH 2</p><h2 id="categoryTitle">Pilih Produk</h2><p id="productHint" class="product-hint">Pilih provider terlebih dahulu.</p></div>
-          <input id="search" class="search" type="search" placeholder="Cari nominal atau paket...">
-        </div>
-        <div id="products" class="products"></div>
-      </div>
-
-      <aside class="order-card">
-        <p class="eyebrow">LANGKAH 3</p><h2>Checkout</h2>
-        <div id="emptyOrder" class="empty">Belum ada produk dipilih.</div>
-        <div id="orderForm" class="hidden">
-          <div class="selected-product"><span id="selectedName"></span><b id="selectedPrice"></b></div>
-          <label>Nomor tujuan</label><input id="targetNumber" type="tel" placeholder="Contoh: 081234567890">
-          <label>Nama pembeli (opsional)</label><input id="buyerName" type="text" placeholder="Nama kamu">
-          <button id="checkoutBtn" class="primary-btn full">Lanjut Pembayaran</button>
-          <button id="cancelBtn" class="text-btn">Batalkan</button>
-        </div>
-      </aside>
-    </section>
-
-    <section class="steps"><div><b>1</b><span>Pilih provider</span></div><div><b>2</b><span>Pilih pulsa/kuota</span></div><div><b>3</b><span>Bayar via QRIS</span></div><div><b>4</b><span>Konfirmasi WhatsApp</span></div></section>
-  </main>
-  <footer><strong>DENIHZA STORE</strong><span>© 2026 • Pulsa, Kuota Internet, Dompet Digital & Token Listrik</span></footer>
-  <script src="app.js"></script>
+  <section class="checkout-dock" id="checkoutDock">
+    <div class="checkout-inner">
+      <div class="checkout-copy"><span class="section-label">PESANAN</span><h3>Checkout</h3><div id="emptyOrder">Belum ada produk dipilih.</div><div id="orderForm" class="hidden"><div class="selected-product"><span id="selectedName"></span><b id="selectedPrice"></b></div><div class="checkout-fields"><input id="targetNumber" type="tel" placeholder="Nomor tujuan (08xxxxxxxxxx)"><input id="buyerName" type="text" placeholder="Nama pembeli (opsional)"><button id="checkoutBtn" class="primary-btn">Lanjut Pembayaran</button><button id="cancelBtn" class="text-btn">Batalkan</button></div></div></div>
+    </div>
+  </section>
+</main>
+<footer><strong>DENIHZA STORE</strong><span>© 2026 • Pulsa, Kuota Internet, Dompet Digital & Token Listrik</span></footer>
+<script src="app.js"></script>
+<script>
+  // Sinkronkan kelas desain baru dengan event kategori yang sudah ada di app.js.
+  document.querySelectorAll('.service-card').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('.service-card').forEach(x=>x.classList.remove('active')); btn.classList.add('active');
+    window.scrollTo({top:document.getElementById('produk').offsetTop-20,behavior:'smooth'});
+  }));
+</script>
 </body>
 </html>

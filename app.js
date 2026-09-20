@@ -462,14 +462,29 @@ function renderProviders(){
   box.querySelectorAll(".provider-btn").forEach(btn=>btn.onclick=()=>{provider=btn.dataset.provider;document.getElementById("search").value="";renderProviders();render();});
 }
 function providerIcon(name){
-  return ({Telkomsel:"T",Indosat:"IM",Axis:"X",XL:"XL",Tri:"3",Smartfren:"SF"}[name]||"•");
+  const key=String(name).toLowerCase();
+  const marks={
+    telkomsel:'<span class="brand-mark telkomsel-mark">T</span>',
+    indosat:'<span class="brand-mark indosat-mark">indosat</span>',
+    axis:'<span class="brand-mark axis-mark">AXIS</span>',
+    xl:'<span class="brand-mark xl-mark">XL</span>',
+    tri:'<span class="brand-mark tri-mark">3</span>',
+    smartfren:'<span class="brand-mark smartfren-mark">S</span>',
+    dana:'<span class="brand-mark dana-mark">D</span>',
+    ovo:'<span class="brand-mark ovo-mark">OVO</span>',
+    gopay:'<span class="brand-mark gopay-mark">G</span>',
+    shopeepay:'<span class="brand-mark shopeepay-mark">S</span>',
+    pln:'<span class="brand-mark pln-mark">⚡</span>'
+  };
+  return marks[key]||'<span class="brand-mark generic-mark">•</span>';
 }
 function render(){
   const isMobile=category==="pulsa"||category==="kuota";
   const title=document.getElementById("categoryTitle");
   const hint=document.getElementById("productHint");
   if(isMobile){
-    title.textContent=provider?`${labels[category]} ${provider}`:`Pilih ${labels[category]}`;
+    title.textContent=provider?`${labels[category]} ${provider}`:`Pilih Provider ${labels[category]}`;
+    const serviceTitle=document.getElementById("serviceTitle"); if(serviceTitle) serviceTitle.textContent=provider?`Pilih Provider ${labels[category]}`:`Pilih Provider ${labels[category]}`;
     hint.textContent=provider?`Pilih ${category==="pulsa"?"nominal pulsa":"paket kuota"} yang kamu inginkan.`:"Klik nama provider di atas untuk melihat produknya.";
   }else{
     title.textContent=labels[category];
@@ -481,7 +496,7 @@ function render(){
   list=list.filter(p=>p.join(" ").toLowerCase().includes(q));
   document.getElementById("products").innerHTML=list.map((p,i)=>{
     const prov=providerName(p,category);
-    return `<div class="product" data-index="${i}"><div class="product-top"><span class="provider-pill">${prov}</span><span class="arrow">›</span></div><strong>${p[1]}</strong><div class="product-bottom"><span class="price">${rupiah(p[2])}</span><span class="buy-mini">Pilih</span></div></div>`;
+    return `<div class="product" data-index="${i}"><div class="product-top"><div class="product-brand">${providerIcon(prov)}<span>${prov}</span></div><span class="arrow">›</span></div><strong>${p[1]}</strong><div class="product-bottom"><span class="price">${rupiah(p[2])}</span><span class="buy-mini">🛒&nbsp; Pilih</span></div></div>`;
   }).join("")||`<div class="empty">Produk tidak ditemukan.</div>`;
   document.querySelectorAll(".product").forEach(el=>el.onclick=()=>{
     const p=list[Number(el.dataset.index)];
@@ -491,7 +506,7 @@ function render(){
     document.getElementById("orderForm").classList.remove("hidden");
     document.getElementById("selectedName").textContent=`${prov} • ${p[1]}`;
     document.getElementById("selectedPrice").textContent=rupiah(p[2]);
-    document.querySelector(".order-card").scrollIntoView({behavior:"smooth",block:"center"});
+    document.getElementById("checkoutDock").scrollIntoView({behavior:"smooth",block:"center"});
   });
 }
 document.querySelectorAll(".cat").forEach(btn=>btn.onclick=()=>{
