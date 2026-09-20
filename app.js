@@ -1,5 +1,5 @@
 // ===============================
-// AFANARKA STORE - KONFIGURASI
+// DENIHZA STORE - KONFIGURASI
 // Ganti nomor WhatsApp dan QRIS di bagian CONFIG.
 // ===============================
 const CONFIG = {
@@ -429,21 +429,34 @@ const products = {
 };
 
 const labels={pulsa:"Pulsa",kuota:"Kuota Internet",ewallet:"Dompet Digital",token:"Token Listrik"};
-let category="pulsa", selected=null;
-
+let category="pulsa", provider="", selected=null;
 const rupiah=n=>new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n);
-const wa=(text)=>`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`;
+const wa=text=>`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`;
+document.getElementById("waTop").href=wa("Halo DENIHZA STORE, saya ingin bertanya tentang produk.");
 
-document.getElementById("waTop").href=wa("Halo AFANARKA STORE, saya ingin bertanya tentang produk.");
-
+function providersFor(cat){ return [...new Set(products[cat].map(p=>p[0]))]; }
+function renderProviders(){
+  const box=document.getElementById("providerButtons");
+  const isMobile=category==="pulsa"||category==="kuota";
+  document.getElementById("mobileShop").style.display=isMobile?"block":"none";
+  if(!isMobile) return;
+  const list=providersFor(category);
+  if(!list.includes(provider)) provider=list[0]||"";
+  box.innerHTML=list.map(x=>`<button class="provider-btn ${x===provider?"active":""}" data-provider="${x}">${x}</button>`).join("");
+  box.querySelectorAll(".provider-btn").forEach(btn=>btn.onclick=()=>{provider=btn.dataset.provider;document.getElementById("search").value="";renderProviders();render();});
+}
 function render(){
-  document.getElementById("categoryTitle").textContent=labels[category];
+  const isMobile=category==="pulsa"||category==="kuota";
+  if(isMobile){
+    document.getElementById("categoryTitle").textContent=`${labels[category]} ${provider}`;
+  }else{
+    document.getElementById("categoryTitle").textContent=labels[category];
+  }
   const q=document.getElementById("search").value.toLowerCase();
-  const list=products[category].filter(p=>p.join(" ").toLowerCase().includes(q));
-  document.getElementById("products").innerHTML=list.map((p,i)=>`
-    <div class="product" data-index="${i}">
-      <small>${p[0]}</small><strong>${p[1]}</strong><span class="price">${rupiah(p[2])}</span>
-    </div>`).join("") || `<div class="empty">Produk tidak ditemukan.</div>`;
+  let list=products[category];
+  if(isMobile) list=list.filter(p=>p[0]===provider);
+  list=list.filter(p=>p.join(" ").toLowerCase().includes(q));
+  document.getElementById("products").innerHTML=list.map((p,i)=>`<div class="product" data-index="${i}"><small>${p[0]}</small><strong>${p[1]}</strong><span class="price">${rupiah(p[2])}</span></div>`).join("")||`<div class="empty">Produk tidak ditemukan.</div>`;
   document.querySelectorAll(".product").forEach(el=>el.onclick=()=>{
     const p=list[Number(el.dataset.index)];
     selected={category,provider:p[0],name:p[1],price:p[2]};
@@ -456,18 +469,18 @@ function render(){
 }
 document.querySelectorAll(".cat").forEach(btn=>btn.onclick=()=>{
   document.querySelectorAll(".cat").forEach(x=>x.classList.remove("active"));
-  btn.classList.add("active"); category=btn.dataset.category; document.getElementById("search").value=""; render();
+  btn.classList.add("active");
+  category=btn.dataset.category; provider=""; document.getElementById("search").value="";
+  renderProviders(); render();
 });
 document.getElementById("search").oninput=render;
 document.getElementById("cancelBtn").onclick=()=>{selected=null;document.getElementById("orderForm").classList.add("hidden");document.getElementById("emptyOrder").classList.remove("hidden")};
-
 document.getElementById("checkoutBtn").onclick=()=>{
-  if(!selected) return;
+  if(!selected)return;
   const number=document.getElementById("targetNumber").value.trim();
-  const name=document.getElementById("buyerName").value.trim() || "-";
+  const name=document.getElementById("buyerName").value.trim()||"-";
   if(!number){alert("Masukkan nomor tujuan terlebih dahulu.");return;}
-  const order={...selected,number,buyer:name,orderId:"AF"+Date.now().toString().slice(-8)};
-  sessionStorage.setItem("afanarkaOrder",JSON.stringify(order));
-  location.href="payment.html";
+  const order={...selected,number,buyer:name,orderId:"DN"+Date.now().toString().slice(-8)};
+  sessionStorage.setItem("denihzaOrder",JSON.stringify(order)); location.href="payment.html";
 };
-render();
+renderProviders();render();
