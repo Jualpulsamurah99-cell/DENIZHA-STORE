@@ -12,8 +12,11 @@
 <div id="detail" class="detail"></div>
 <img class="qris" src="qris.png" alt="QRIS DENIHZA STORE" onerror="this.style.display='none';document.getElementById('qrisMissing').style.display='block'">
 <p id="qrisMissing" class="note" style="display:none;text-align:center">Gambar QRIS belum dipasang. Ganti file <b>qris.png</b> dengan QRIS kamu.</p>
-<p class="note">Setelah pembayaran berhasil, simpan bukti pembayaran lalu tekan tombol Konfirmasi WhatsApp.</p>
-<button id="confirm" class="primary-btn full">Konfirmasi via WhatsApp</button>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin:12px 0 4px">
+  <a class="primary-btn" style="flex:1;min-width:180px;text-align:center;text-decoration:none" href="qris.png" download="QRIS-DENIHZA-STORE.png">📥 Simpan QRIS</a>
+</div>
+<p class="note">Jika pembayaran dilakukan dari 1 HP, simpan QRIS ke galeri terlebih dahulu. Setelah pembayaran berhasil, simpan bukti pembayaran lalu tekan tombol Konfirmasi WhatsApp.</p>
+<button id="confirm" class="primary-btn full">💬 Konfirmasi via WhatsApp</button>
 <a class="back" href="index.html">← Kembali ke toko</a>
 </div></main>
 <script>
@@ -24,8 +27,8 @@ else{
  const rupiah=n=>new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n);
  document.getElementById("detail").innerHTML=`<div class="row"><span>ID Pesanan</span><b>${order.orderId}</b></div><div class="row"><span>Produk</span><b>${order.provider} - ${order.name}</b></div><div class="row"><span>Nomor Tujuan</span><b>${order.number}</b></div><div class="row"><span>Nama</span><b>${order.buyer}</b></div><div class="row"><span>Total</span><b>${rupiah(order.price)}</b></div>`;
  document.getElementById("confirm").onclick=()=>{
-   const msg=`Halo DENIHZA STORE, saya sudah melakukan pembayaran.%0A%0AID Pesanan: ${order.orderId}%0AProduk: ${order.provider} - ${order.name}%0ANomor tujuan: ${order.number}%0ANama: ${order.buyer}%0ATotal: ${rupiah(order.price)}%0A%0ASaya akan mengirim bukti pembayaran.`;
-   location.href=`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+   const msg = `🛒 PESANAN DENIHZA STORE\n\n📋 ID Pesanan: ${order.orderId}\n📱 Produk: ${order.provider} - ${order.name}\n📞 Nomor Tujuan: ${order.number}\n👤 Nama: ${order.buyer || "-"}\n💰 Total: ${rupiah(order.price)}\n💳 Metode: QRIS\n\n📎 Saya sudah melakukan pembayaran dan akan mengirim bukti pembayaran melalui WhatsApp.`;
+   location.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
  };
 }
 </script>
