@@ -434,7 +434,23 @@ const rupiah=n=>new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",m
 const wa=text=>`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`;
 document.getElementById("waTop").href=wa("Halo DENIHZA STORE, saya ingin bertanya tentang produk.");
 
-function providersFor(cat){ return [...new Set(products[cat].map(p=>p[0]))]; }
+function providerName(item, cat){
+  if(cat==="kuota"){
+    const raw=String(item[0]).trim();
+    if(/^xl$/i.test(raw)) return "XL";
+    return raw;
+  }
+  if(cat!=="pulsa") return String(item[0]);
+  const name=String(item[1]).toLowerCase();
+  if(name.includes("indosat")) return "Indosat";
+  if(name.includes("telkomsel")) return "Telkomsel";
+  if(name.includes("axis")) return "Axis";
+  if(name.includes("xl")) return "XL";
+  if(name.includes("three")) return "Tri";
+  if(name.includes("smartfren")) return "Smartfren";
+  return String(item[0]);
+}
+function providersFor(cat){ return [...new Set(products[cat].map(p=>providerName(p,cat)))]; }
 function renderProviders(){
   const box=document.getElementById("providerButtons");
   const isMobile=category==="pulsa"||category==="kuota";
@@ -442,27 +458,38 @@ function renderProviders(){
   if(!isMobile) return;
   const list=providersFor(category);
   if(!list.includes(provider)) provider=list[0]||"";
-  box.innerHTML=list.map(x=>`<button class="provider-btn ${x===provider?"active":""}" data-provider="${x}">${x}</button>`).join("");
+  box.innerHTML=list.map(x=>`<button class="provider-btn ${x===provider?"active":""}" data-provider="${x}"><span class="provider-icon">${providerIcon(x)}</span>${x}</button>`).join("");
   box.querySelectorAll(".provider-btn").forEach(btn=>btn.onclick=()=>{provider=btn.dataset.provider;document.getElementById("search").value="";renderProviders();render();});
+}
+function providerIcon(name){
+  return ({Telkomsel:"T",Indosat:"IM",Axis:"X",XL:"XL",Tri:"3",Smartfren:"SF"}[name]||"•");
 }
 function render(){
   const isMobile=category==="pulsa"||category==="kuota";
+  const title=document.getElementById("categoryTitle");
+  const hint=document.getElementById("productHint");
   if(isMobile){
-    document.getElementById("categoryTitle").textContent=`${labels[category]} ${provider}`;
+    title.textContent=provider?`${labels[category]} ${provider}`:`Pilih ${labels[category]}`;
+    hint.textContent=provider?`Pilih ${category==="pulsa"?"nominal pulsa":"paket kuota"} yang kamu inginkan.`:"Klik nama provider di atas untuk melihat produknya.";
   }else{
-    document.getElementById("categoryTitle").textContent=labels[category];
+    title.textContent=labels[category];
+    hint.textContent="Pilih produk lalu lanjutkan ke checkout.";
   }
   const q=document.getElementById("search").value.toLowerCase();
   let list=products[category];
-  if(isMobile) list=list.filter(p=>p[0]===provider);
+  if(isMobile) list=list.filter(p=>providerName(p,category)===provider);
   list=list.filter(p=>p.join(" ").toLowerCase().includes(q));
-  document.getElementById("products").innerHTML=list.map((p,i)=>`<div class="product" data-index="${i}"><small>${p[0]}</small><strong>${p[1]}</strong><span class="price">${rupiah(p[2])}</span></div>`).join("")||`<div class="empty">Produk tidak ditemukan.</div>`;
+  document.getElementById("products").innerHTML=list.map((p,i)=>{
+    const prov=providerName(p,category);
+    return `<div class="product" data-index="${i}"><div class="product-top"><span class="provider-pill">${prov}</span><span class="arrow">›</span></div><strong>${p[1]}</strong><div class="product-bottom"><span class="price">${rupiah(p[2])}</span><span class="buy-mini">Pilih</span></div></div>`;
+  }).join("")||`<div class="empty">Produk tidak ditemukan.</div>`;
   document.querySelectorAll(".product").forEach(el=>el.onclick=()=>{
     const p=list[Number(el.dataset.index)];
-    selected={category,provider:p[0],name:p[1],price:p[2]};
+    const prov=providerName(p,category);
+    selected={category,provider:prov,name:p[1],price:p[2]};
     document.getElementById("emptyOrder").classList.add("hidden");
     document.getElementById("orderForm").classList.remove("hidden");
-    document.getElementById("selectedName").textContent=`${p[0]} • ${p[1]}`;
+    document.getElementById("selectedName").textContent=`${prov} • ${p[1]}`;
     document.getElementById("selectedPrice").textContent=rupiah(p[2]);
     document.querySelector(".order-card").scrollIntoView({behavior:"smooth",block:"center"});
   });
